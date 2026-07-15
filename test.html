@@ -5,12 +5,14 @@
 </head>
 <body>
     <a href="https://www.google.com" target="_blank">Click here to continue</a>
-    <iframe src="https://hami.paziresh24.com" width="1" height="1" style="display:none;"></iframe>
+    <iframe src="https://hami.paziresh24.com" width="100%" height="500"></iframe>
     <script>
         const iframe = document.querySelector('iframe');
+
         iframe.onload = function () {
             try {
                 iframe.contentWindow.history.pushState({}, '', 'https://www.google.com');
+                console.log('URL changed in iframe');
             } catch (e) {
                 console.log('Error:', e.message);
             }
