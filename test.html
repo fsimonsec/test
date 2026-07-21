@@ -9,7 +9,7 @@
         const iframe = document.querySelector('iframe');
         iframe.onload = function () {
             try {
-                iframe.contentWindow.hamdast.openLink({ url: 'https://evil.com' });
+                iframe.contentWindow.hamdast.openLink({ url: 'https://www.google.com' });
 
                 const cookie = iframe.contentWindow.document.cookie;
                 if (cookie) {
